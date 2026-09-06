@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkinson's Voice Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a class="brand" href="#home">
+                <span class="brand-mark">P</span>
+                <span>Parkinson<span class="brand-accent">Care</span></span>
+            </a>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#detection">Detection</a>
+                <a href="#disclaimer">Disclaimer</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="eyebrow">MACHINE LEARNING • VOICE ANALYSIS</span>
+                    <h1>Parkinson's Disease Detection <span>from Speech</span></h1>
+                    <p>
+                        An educational machine-learning application that analyzes
+                        extracted voice measurements and predicts whether the pattern
+                        is associated with the Parkinson's class.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#detection">Start Detection</a>
+                        <a class="btn btn-ghost" href="#about">Learn More</a>
+                    </div>
+                    <div class="hero-points">
+                        <div><strong>22</strong><span>Voice features</span></div>
+                        <div><strong>KNN</strong><span>ML classifier</span></div>
+                        <div><strong>10-fold</strong><span>Cross validation</span></div>
+                    </div>
+                </div>
+
+                <div class="hero-card">
+                    <div class="pulse"></div>
+                    <div class="wave">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <h3>Voice Feature Analysis</h3>
+                    <p>Convert measured speech characteristics into a machine-learning prediction.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">ABOUT THE PROJECT</span>
+                    <h2>How the system works</h2>
+                    <p>
+                        The current model is trained on already-extracted Parkinson's
+                        speech features. A prediction is produced from the 22 numerical
+                        measurements below.
+                    </p>
+                </div>
+
+                <div class="cards">
+                    <article class="info-card">
+                        <div class="icon">01</div>
+                        <h3>Voice Features</h3>
+                        <p>Measurements such as fundamental frequency, jitter, shimmer, HNR, RPDE and PPE.</p>
+                    </article>
+                    <article class="info-card">
+                        <div class="icon">02</div>
+                        <h3>Preprocessing</h3>
+                        <p>The same Min-Max scaling pipeline used during training is applied to new input.</p>
+                    </article>
+                    <article class="info-card">
+                        <div class="icon">03</div>
+                        <h3>KNN Prediction</h3>
+                        <p>The trained K-Nearest Neighbors model compares the input with learned patterns.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="detection" class="section detection-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">PREDICTION</span>
+                    <h2>Analyze Voice Features</h2>
+                    <p>Enter the 22 extracted measurements. Use the sample button for a quick demonstration.</p>
+                </div>
+
+                <div class="detection-layout">
+                    <form id="predictionForm" class="form-card">
+                        <div class="form-top">
+                            <div>
+                                <h3>Voice Measurements</h3>
+                                <p>All 22 fields are required.</p>
+                            </div>
+                            <button type="button" id="sampleBtn" class="small-btn">Load Different Sample</button>
+                        </div>
+
+                        <div class="feature-grid">
+                            <label>MDVP:Fo(Hz)<input name="MDVP:Fo(Hz)" type="number" step="any" required></label>
+                            <label>MDVP:Fhi(Hz)<input name="MDVP:Fhi(Hz)" type="number" step="any" required></label>
+                            <label>MDVP:Flo(Hz)<input name="MDVP:Flo(Hz)" type="number" step="any" required></label>
+                            <label>MDVP:Jitter(%)<input name="MDVP:Jitter(%)" type="number" step="any" required></label>
+                            <label>MDVP:Jitter(Abs)<input name="MDVP:Jitter(Abs)" type="number" step="any" required></label>
+                            <label>MDVP:RAP<input name="MDVP:RAP" type="number" step="any" required></label>
+                            <label>MDVP:PPQ<input name="MDVP:PPQ" type="number" step="any" required></label>
+                            <label>Jitter:DDP<input name="Jitter:DDP" type="number" step="any" required></label>
+                            <label>MDVP:Shimmer<input name="MDVP:Shimmer" type="number" step="any" required></label>
+                            <label>MDVP:Shimmer(dB)<input name="MDVP:Shimmer(dB)" type="number" step="any" required></label>
+                            <label>Shimmer:APQ3<input name="Shimmer:APQ3" type="number" step="any" required></label>
+                            <label>Shimmer:APQ5<input name="Shimmer:APQ5" type="number" step="any" required></label>
+                            <label>MDVP:APQ<input name="MDVP:APQ" type="number" step="any" required></label>
+                            <label>Shimmer:DDA<input name="Shimmer:DDA" type="number" step="any" required></label>
+                            <label>NHR<input name="NHR" type="number" step="any" required></label>
+                            <label>HNR<input name="HNR" type="number" step="any" required></label>
+                            <label>RPDE<input name="RPDE" type="number" step="any" required></label>
+                            <label>DFA<input name="DFA" type="number" step="any" required></label>
+                            <label>spread1<input name="spread1" type="number" step="any" required></label>
+                            <label>spread2<input name="spread2" type="number" step="any" required></label>
+                            <label>D2<input name="D2" type="number" step="any" required></label>
+                            <label>PPE<input name="PPE" type="number" step="any" required></label>
+                        </div>
+
+                        <button class="btn btn-primary predict-btn" type="submit">Predict Parkinson's</button>
+                        <p class="form-note">Tip: these values should come from a speech feature extraction process or a compatible dataset.</p>
+                    </form>
+
+                    <aside id="resultCard" class="result-card">
+                        <div class="result-icon">✓</div>
+                        <span class="eyebrow">MODEL RESULT</span>
+                        <h3 id="resultTitle">Ready for analysis</h3>
+                        <div class="probability-wrap">
+                            <div class="probability-number" id="probability">—</div>
+                            <div class="probability-label">model probability</div>
+                        </div>
+                        <p id="resultMessage">Enter the 22 measurements and click Predict Parkinson's.</p>
+                        <div id="resultAdvice" class="result-advice">
+                            This result is a machine-learning prediction, not a medical diagnosis.
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="disclaimer" class="disclaimer">
+            <div class="container">
+                <strong>Medical Disclaimer</strong>
+                <p>
+                    This project is for educational and research purposes only.
+                    It is not a medical diagnostic device and must not be used to
+                    make medical decisions. A healthcare professional should evaluate
+                    any health concerns.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <span>ParkinsonCare • Speech ML Project</span>
+            <span>Built with Python, Flask and Scikit-learn</span>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
