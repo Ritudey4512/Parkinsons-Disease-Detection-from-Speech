@@ -1,34 +1,107 @@
-# Parkinson's Disease Detection from Speech
+# 🧠 Parkinson's Disease Detection from Speech
 
-A Flask + Scikit-learn educational project for Parkinson's disease classification using 22 extracted voice features.
+A machine learning-based web application that classifies Parkinson's-related patterns using **22 extracted biomedical voice features**.
 
-## Current version
+The project uses a **K-Nearest Neighbors (KNN)** classification algorithm with **MinMaxScaler** for feature scaling. A Flask-based web application provides an interactive interface for entering voice features and viewing prediction results.
 
-**Important:** this version does not directly analyze a `.wav` recording. The model expects the 22 numerical voice features used by the training dataset.
+> ⚠️ **Disclaimer:** This project is developed for educational and research purposes only. It is not a medical diagnostic system and should not replace professional medical advice.
 
-Pipeline:
+---
 
-`22 voice features -> Min-Max scaling -> KNN -> prediction`
+## 📌 Project Overview
 
-## Project structure
+Parkinson's disease can affect speech and voice characteristics. Features such as frequency variation, jitter, shimmer, HNR, and other acoustic measurements can be used for machine learning research.
+
+This project uses **195 voice samples** with **22 voice-related features** to classify samples into two classes:
+
+- `0` → Healthy / Control
+- `1` → Parkinson's-related class
+
+The trained model is integrated with a Flask web application.
+
+---
+
+## 🎯 Objectives
+
+- Analyze biomedical voice features.
+- Build a machine learning classification model.
+- Use KNN for Parkinson's-related pattern classification.
+- Apply Min-Max feature scaling.
+- Develop an interactive web interface.
+- Display prediction and model probability.
+- Integrate the ML model with Flask.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Python**
+- **Flask**
+- **Scikit-learn**
+- **K-Nearest Neighbors (KNN)**
+- **Pandas**
+- **NumPy**
+- **Joblib**
+- **HTML5**
+- **CSS3**
+- **JavaScript**
+- **Git & GitHub**
+- **Visual Studio Code**
+
+---
+
+## 📊 Dataset
+
+The dataset contains:
+
+- **195 samples**
+- **22 biomedical voice features**
+- **1 target variable (`status`)**
+
+The 22 features include frequency, jitter, shimmer, HNR, RPDE, DFA, spread1, spread2, D2, PPE, and other voice measurements.
+
+---
+
+## 🤖 Machine Learning Pipeline
 
 ```text
-Parkinsons_disease_detection_from_speech_project/
+22 Voice Features
+       ↓
+Min-Max Scaling
+       ↓
+KNN Classifier
+       ↓
+Prediction
+       ↓
+Model Probability
+
+---
+
+## 📂 Project Structure
+```text
+Parkinsons-Disease-Detection-from-Speech/
+│
+├── models/
+│   ├── parkinsons_knn_pipeline.pkl
+│   └── metadata.json
+│
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── script.js
+│
+├── templates/
+│   └── index.html
+│
 ├── app.py
 ├── train_model.py
 ├── data.csv
 ├── requirements.txt
-├── models/
-│   ├── parkinsons_knn_pipeline.pkl
-│   └── metadata.json
-├── templates/
-│   └── index.html
-└── static/
-    ├── css/
-    │   └── style.css
-    └── js/
-        └── script.js
+├── README.md
+└── .gitignore
 ```
+---
 
 ## Run in VS Code
 
@@ -62,30 +135,7 @@ Start the website:
 python app.py
 ```
 
-Open:
-
-```text
-http://127.0.0.1:5000
-```
-
-Do **not** open `index.html` directly and do not use Live Server.
-
-## Model information
-
-Dataset rows used: 195
-
-The training script:
-- separates the 22 input features from `status`
-- uses a stratified 75/25 evaluation split
-- scales only the input features
-- uses 10-fold stratified cross-validation
-- evaluates KNN with accuracy and MCC
-- trains the final KNN pipeline on the complete cleaned dataset
-- saves the complete preprocessing + model pipeline
-
-## Medical disclaimer
-
-This is an educational/research project. It is not a medical diagnostic device and should not replace professional medical advice.
+---
 
 ## Future upgrade: real speech upload
 
