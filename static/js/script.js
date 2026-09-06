@@ -43,14 +43,12 @@ sampleBtn.addEventListener(
         resultAdvice.textContent =
             "Please wait.";
 
-
         try {
 
             const response =
                 await fetch(
                     "/sample"
                 );
-
 
             const result =
                 await response.json();
@@ -103,7 +101,6 @@ sampleBtn.addEventListener(
                 "Click Predict Parkinson's "
                 + "to run the model.";
 
-
         } catch (error) {
 
             resultTitle.textContent =
@@ -117,7 +114,6 @@ sampleBtn.addEventListener(
 
             resultAdvice.textContent =
                 "Please try again.";
-
 
         } finally {
 

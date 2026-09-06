@@ -199,19 +199,13 @@ nav a:hover {
 
 .btn {
     display: inline-flex;
-
     align-items: center;
     justify-content: center;
-
     padding: 13px 24px;
-
     border-radius: 9px;
-
     font-size: 15px;
     font-weight: 700;
-
     cursor: pointer;
-
     transition: 0.3s;
 }
 

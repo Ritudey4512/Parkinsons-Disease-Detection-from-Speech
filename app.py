@@ -8,7 +8,6 @@ app = Flask(__name__)
 MODEL_PATH = "models/parkinsons_knn_pipeline.pkl"
 DATA_PATH = "data.csv"
 
-
 try:
     model = joblib.load(MODEL_PATH)
     print("Model loaded successfully.")
@@ -16,7 +15,6 @@ try:
 except Exception as e:
     model = None
     print("Error loading model:", e)
-
 
 FEATURES = [
     "MDVP:Fo(Hz)",
@@ -42,7 +40,6 @@ FEATURES = [
     "D2",
     "PPE"
 ]
-
 
 try:
     dataset = pd.read_csv(DATA_PATH)
