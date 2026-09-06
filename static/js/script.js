@@ -1,7 +1,3 @@
-// ============================================================
-// 1. GET HTML ELEMENTS
-// ============================================================
-
 const form =
     document.getElementById("predictionForm");
 
@@ -23,18 +19,9 @@ const resultAdvice =
 const sampleBtn =
     document.getElementById("sampleBtn");
 
-
-// ============================================================
-// 2. LOAD RANDOM SAMPLE FROM FLASK
-// ============================================================
-
 sampleBtn.addEventListener(
     "click",
     async () => {
-
-        // ----------------------------------------------------
-        // Loading message
-        // ----------------------------------------------------
 
         sampleBtn.disabled = true;
 
@@ -59,10 +46,6 @@ sampleBtn.addEventListener(
 
         try {
 
-            // ------------------------------------------------
-            // Ask Flask for a random sample
-            // ------------------------------------------------
-
             const response =
                 await fetch(
                     "/sample"
@@ -71,11 +54,6 @@ sampleBtn.addEventListener(
 
             const result =
                 await response.json();
-
-
-            // ------------------------------------------------
-            // Check for errors
-            // ------------------------------------------------
 
             if (
                 !response.ok ||
@@ -88,18 +66,8 @@ sampleBtn.addEventListener(
                 );
             }
 
-
-            // ------------------------------------------------
-            // Get sample
-            // ------------------------------------------------
-
             const sample =
                 result.sample;
-
-
-            // ------------------------------------------------
-            // Put values into the 22 input fields
-            // ------------------------------------------------
 
             Object.entries(sample).forEach(
                 ([name, value]) => {
@@ -116,11 +84,6 @@ sampleBtn.addEventListener(
                     }
                 }
             );
-
-
-            // ------------------------------------------------
-            // Show sample information
-            // ------------------------------------------------
 
             resultTitle.textContent =
                 `Sample ${result.sample_number} Loaded`;
@@ -143,10 +106,6 @@ sampleBtn.addEventListener(
 
         } catch (error) {
 
-            // ------------------------------------------------
-            // Error handling
-            // ------------------------------------------------
-
             resultTitle.textContent =
                 "Sample Loading Error";
 
@@ -162,10 +121,6 @@ sampleBtn.addEventListener(
 
         } finally {
 
-            // ------------------------------------------------
-            // Restore button
-            // ------------------------------------------------
-
             sampleBtn.disabled =
                 false;
 
@@ -175,21 +130,12 @@ sampleBtn.addEventListener(
     }
 );
 
-
-// ============================================================
-// 3. FORM SUBMISSION / PREDICTION
-// ============================================================
-
 form.addEventListener(
     "submit",
     async (event) => {
 
         event.preventDefault();
 
-
-        // ----------------------------------------------------
-        // Collect form data
-        // ----------------------------------------------------
 
         const data = {};
 
@@ -204,11 +150,6 @@ form.addEventListener(
                     Number(value);
             }
         );
-
-
-        // ----------------------------------------------------
-        // Show loading state
-        // ----------------------------------------------------
 
         resultCard.style.display =
             "block";
@@ -229,10 +170,6 @@ form.addEventListener(
 
         try {
 
-            // ------------------------------------------------
-            // Send data to Flask
-            // ------------------------------------------------
-
             const response =
                 await fetch(
                     "/predict",
@@ -250,18 +187,8 @@ form.addEventListener(
                     }
                 );
 
-
-            // ------------------------------------------------
-            // Read Flask response
-            // ------------------------------------------------
-
             const result =
                 await response.json();
-
-
-            // ------------------------------------------------
-            // Check response
-            // ------------------------------------------------
 
             if (
                 !response.ok ||
@@ -274,11 +201,6 @@ form.addEventListener(
                 );
             }
 
-
-            // ------------------------------------------------
-            // Display prediction
-            // ------------------------------------------------
-
             resultTitle.textContent =
                 result.result;
 
@@ -289,11 +211,6 @@ form.addEventListener(
 
             resultMessage.textContent =
                 result.message;
-
-
-            // ------------------------------------------------
-            // Advice
-            // ------------------------------------------------
 
             if (
                 result.prediction === 1
@@ -314,10 +231,6 @@ form.addEventListener(
 
 
         } catch (error) {
-
-            // ------------------------------------------------
-            // Error handling
-            // ------------------------------------------------
 
             resultTitle.textContent =
                 "Prediction Error";

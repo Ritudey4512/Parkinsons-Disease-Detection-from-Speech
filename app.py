@@ -3,25 +3,11 @@ import joblib
 import pandas as pd
 import numpy as np
 
-
-# ============================================================
-# FLASK APPLICATION
-# ============================================================
-
 app = Flask(__name__)
-
-
-# ============================================================
-# FILE PATHS
-# ============================================================
 
 MODEL_PATH = "models/parkinsons_knn_pipeline.pkl"
 DATA_PATH = "data.csv"
 
-
-# ============================================================
-# LOAD MODEL
-# ============================================================
 
 try:
     model = joblib.load(MODEL_PATH)
@@ -31,10 +17,6 @@ except Exception as e:
     model = None
     print("Error loading model:", e)
 
-
-# ============================================================
-# FEATURE NAMES
-# ============================================================
 
 FEATURES = [
     "MDVP:Fo(Hz)",
@@ -62,10 +44,6 @@ FEATURES = [
 ]
 
 
-# ============================================================
-# LOAD DATASET
-# ============================================================
-
 try:
     dataset = pd.read_csv(DATA_PATH)
 
@@ -90,18 +68,10 @@ except Exception as e:
     print("Error loading dataset:", e)
 
 
-# ============================================================
-# HOME PAGE
-# ============================================================
-
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
-# ============================================================
-# RANDOM SAMPLE ROUTE
-# ============================================================
 
 @app.route("/sample", methods=["GET"])
 def get_random_sample():
@@ -144,10 +114,6 @@ def get_random_sample():
         }), 500
 
 
-# ============================================================
-# PREDICTION ROUTE
-# ============================================================
-
 @app.route("/predict", methods=["POST"])
 def predict():
 
@@ -167,10 +133,6 @@ def predict():
             }), 400
 
 
-        # ----------------------------------------------------
-        # Check all 22 features
-        # ----------------------------------------------------
-
         missing_features = [
             feature
             for feature in FEATURES
@@ -185,10 +147,6 @@ def predict():
                 )
             }), 400
 
-
-        # ----------------------------------------------------
-        # Convert input to numbers
-        # ----------------------------------------------------
 
         values = []
 
@@ -217,36 +175,18 @@ def predict():
             values.append(value)
 
 
-        # ----------------------------------------------------
-        # Create DataFrame
-        # ----------------------------------------------------
-
         input_data = pd.DataFrame(
             [values],
             columns=FEATURES
         )
-
-
-        # ----------------------------------------------------
-        # Make prediction
-        # ----------------------------------------------------
-
         prediction = int(
             model.predict(input_data)[0]
         )
-
-
-        # ----------------------------------------------------
-        # Get probability
-        # ----------------------------------------------------
 
         probabilities = model.predict_proba(
             input_data
         )[0]
 
-
-        # Find probability corresponding to
-        # predicted class
 
         class_probabilities = dict(
             zip(
@@ -259,18 +199,12 @@ def predict():
             class_probabilities[prediction] * 100
         )
 
-
         # Round probability
         predicted_probability = round(
             predicted_probability,
             2
         )
-
-
-        # ----------------------------------------------------
-        # Result messages
-        # ----------------------------------------------------
-
+        
         if prediction == 1:
 
             result = (
@@ -297,11 +231,6 @@ def predict():
                 "class."
             )
 
-
-        # ----------------------------------------------------
-        # Return result
-        # ----------------------------------------------------
-
         return jsonify({
 
             "prediction": prediction,
@@ -315,7 +244,6 @@ def predict():
 
         })
 
-
     except Exception as e:
 
         print("Prediction error:", e)
@@ -324,11 +252,6 @@ def predict():
             "error":
                 f"Prediction failed: {str(e)}"
         }), 500
-
-
-# ============================================================
-# RUN APPLICATION
-# ============================================================
 
 if __name__ == "__main__":
 
